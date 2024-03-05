@@ -13,5 +13,6 @@ class LineItemsController < ApplicationController
     redirect_to carts_path(@current_cart)
   end
 
-  def add_to_cart; end
+  def add_to_cart
+  end
 end
