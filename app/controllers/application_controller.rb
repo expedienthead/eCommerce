@@ -1,7 +1,8 @@
+# rubocop:disable Metrics/AbcSize,Metrics/MethodLength
 class ApplicationController < ActionController::Base
   before_action :set_current_cart
 
-  def set_current_cart # rubocop:disable Metrics/AbcSize
+  def set_current_cart
     if current_user && current_user.cart.nil?
       cart = Cart.create
       session[:cart_id] = cart.id
@@ -10,6 +11,7 @@ class ApplicationController < ActionController::Base
     elsif current_user && current_user.cart.present?
       cart = Cart.where(user_id: current_user.id).last
       session[:cart_id] = cart.id
+      @current_cart = cart
     end
   end
 end
