@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <%= render "layouts/nav" %>
+    <%= content_for?(:success) ? yield(:success) : render("layouts/nav") %>
     <%= yield %>
   </body>
 </html>

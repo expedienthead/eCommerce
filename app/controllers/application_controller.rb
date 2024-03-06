@@ -1,6 +1,7 @@
 # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
 class ApplicationController < ActionController::Base
   before_action :set_current_cart
+  # before_action :set_razorpay_order
 
   def set_current_cart
     if current_user && current_user.cart.nil?
@@ -14,4 +15,10 @@ class ApplicationController < ActionController::Base
       @current_cart = cart
     end
   end
+
+  # def set_razorpay_order
+  #   if @current_cart.sub_total > 0
+  #     @order = RazorPay::Order.create(amount: (@current_cart.sub_total.to_i * 100), currency: 'INR', receipt: 'TEST')
+  #   end
+  # end
 end
