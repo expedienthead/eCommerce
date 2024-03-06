@@ -1,7 +1,24 @@
 # rubocop:disable Style/ConditionalAssignment
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/ClassLength
 class LineItemsController < ApplicationController
+  def add_to_cart_from_index
+    check_and_add_to_cart
+    item_quantity = params[:quantity].to_i
+    @line_item.quantity += item_quantity
+    @line_item.save
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream:
+        turbo_stream.update(
+          "product_#{selected_product.id}_user_#{current_user.id}",
+          partial: 'form_for_add_to_cart',
+        )
+      }
+    end
+  end
+
   def add_product_from_index
     check_and_add_to_cart
   end
